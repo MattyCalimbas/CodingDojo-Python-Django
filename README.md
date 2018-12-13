@@ -14,6 +14,11 @@ Framework Utilized:
   <li>Django</li>
 </ul>
 
+Database Utilized:
+<ul>
+  <li>MySQL</li>
+</ul>
+
 Library Utilized:
 <ul>
   <li>Bootstrap</li>
