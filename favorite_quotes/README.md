@@ -1,6 +1,6 @@
 # Favorite Quotes (Coding Dojo Python/Django Project)
 
-This a Coding Dojo project where under a 5 hour time constraint I created a fully functional web application that allows user login/registration to a dashboard page of quotes.  This web application has the ability for the user to submit and track their favorite quote(s) and also sports appropriate validations for all forms used.
+This a Coding Dojo project where under a 5 hour time constraint I created a fully functional web application that allows user login/registration to a dashboard page of quotes.  This web application has the ability for the user to submit and track their favorite quote(s) and also sports appropriate data integrity validations for all forms used with MySQL database integration.
 
 Languages Utilized:
 <ul>
