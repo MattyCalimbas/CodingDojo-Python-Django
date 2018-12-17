@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous"></script>
+    <title>Travel Dashboard</title>
+</head>
+<body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+                <a class="navbar-brand" href="#">Welcome {{ user.first_name }}</a>
+                <div class ="ml-auto navbar-text"><a href='myaccount/{{ request.session.id }}'> Edit My Account </a> | <a href='/logout'> Log Off </a></div>
+            </nav>
+
+    <div class = 'container'>
+            <div class="py-5 text-center">
+                    {% load static %}
+                    <img class="d-block mx-auto" src="{% static 'img/mlogo.png' %}" alt="" width="100">
+                    <h1 class='mt-2'>Welcome Quote Dash</h1>
+            </div>
+        <h2>Quotes</h2>
+            {% for quote in quotes %}
+            <h6>Author: {{ quote.author}}</h6>
+            <p>{{quote.quote}} {% if quote.posted_by.id == request.session.id %} <a href='delete/{{ quote.id }}'>  <button class='btn btn-danger btn-sm' type='button'>Delete</button></a> {% endif %}</p>
+            <p class='ml-3'>Posted By:<a href='user/{{ quote.posted_by.id }}'> {{ quote.posted_by.first_name }} {{ quote.posted_by.last_name }}</a></p>
+            <hr>
+            {% endfor %}
+
+        <h2>Add a Quote</h2>
+        {% for message in messages %}
+        {% if 'author' in message.extra_tags %}
+        <p style='color:red'>{{ message }}</p>
+        {% endif %}
+        {% endfor %}
+        {% csrf_token %}
+        <form action='/post_quote' method='post'>
+        <label for='author'>Author:</label>
+        <input type='text' class='form-control' name='author'>
+        {% csrf_token %}
+        <div class="form-group mt-3">
+        {% for message in messages %}
+        {% if 'quote' in message.extra_tags %}
+        <p style='color:red'>{{ message }}</p>
+        {% endif %}
+        {% endfor %}
+        <textarea class="form-control" name="quote" value='post' rows="6"></textarea>
+        <button class='btn btn-primary mt-3' type='submit'>Post a Quote</button>
+        </div>
+        </form>
+
+    </div>
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2017-2018 MattCal Development Group</p>
+        <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">Privacy</a></li>
+        <li class="list-inline-item"><a href="#">Terms</a></li>
+        <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
+</body>
+</html>
